@@ -126,7 +126,6 @@ const char* Value_Name(Node* node)
 
 void Recursive_Node_Dump(Node* node, FILE* dump_file)
 {
-    printf("I'm in recursive node dump\n");
     char* color = NULL;
     char* edge_color = NULL;
     if (node->left == NULL && node->right == NULL) color = "darkolivegreen1";
@@ -152,7 +151,7 @@ void Recursive_Node_Dump(Node* node, FILE* dump_file)
     if (node->right != NULL) Recursive_Node_Dump(node->right, dump_file);
 }
 
-void Tree_Dump(Node* root_node)
+void Tree_Dump(Node* root_node, char* func)
 {
     FILE* dump_file = fopen("dump_dot.dot", "w");                            
     DUMP("digraph{\n");                                                 
@@ -160,6 +159,7 @@ void Tree_Dump(Node* root_node)
     DUMP("splines = \"ortho\";\n");                                     
     DUMP("node [ shape=record, style = rounded, fontsize = 30];\n");  
 
+    DUMP("cell_func [label = \"%s\"]", func);
     DUMP("cell_%d [label = \"%s|", root_node->cell_num, Type_Name(root_node->type));
     if (root_node->type == NUMBER)
     {
