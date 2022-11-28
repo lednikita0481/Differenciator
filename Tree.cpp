@@ -142,10 +142,13 @@ void Recursive_Node_Dump(Node* node, FILE* dump_file)
     }
     DUMP("\"\n style = filled\n fillcolor = %s \n]\n", color);
 
-    if (node->parent->left == node) edge_color = "firebrick4";
-    else edge_color = "darkgreen";
-    
-    DUMP("cell_%d->cell_%d[color = %s]\n", node->parent->cell_num, node->cell_num, edge_color);
+    if (node->parent != NULL)
+    {
+        if (node->parent->left == node) edge_color = "firebrick4";
+        else edge_color = "darkgreen";
+        
+        DUMP("cell_%d->cell_%d[color = %s]\n", node->parent->cell_num, node->cell_num, edge_color);
+    }
 
     if (node->left != NULL) Recursive_Node_Dump(node->left, dump_file);
     if (node->right != NULL) Recursive_Node_Dump(node->right, dump_file);

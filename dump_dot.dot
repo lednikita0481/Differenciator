@@ -1,0 +1,253 @@
+digraph{
+nodesep = 2;
+splines = "ortho";
+node [ shape=record, style = rounded, fontsize = 30];
+cell_func [label = "differentiate tree"]cell_66 [label = "Operator|+"
+ style = filled
+ fillcolor = violet ]
+cell_65 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_66->cell_65[color = firebrick4]
+cell_64 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_66->cell_64[color = darkgreen]
+cell_31 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_64->cell_31[color = firebrick4]
+cell_30 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_31->cell_30[color = firebrick4]
+cell_17 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_31->cell_17[color = darkgreen]
+cell_18 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_17->cell_18[color = firebrick4]
+cell_19 [label = "Number|2,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_18->cell_19[color = firebrick4]
+cell_20 [label = "Number|7,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_18->cell_20[color = darkgreen]
+cell_21 [label = "Operator|sin"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_17->cell_21[color = darkgreen]
+cell_22 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_21->cell_22[color = darkgreen]
+cell_23 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_22->cell_23[color = firebrick4]
+cell_24 [label = "Variable|x"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_23->cell_24[color = firebrick4]
+cell_25 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_23->cell_25[color = darkgreen]
+cell_26 [label = "Number|3,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_25->cell_26[color = firebrick4]
+cell_27 [label = "Number|5,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_25->cell_27[color = darkgreen]
+cell_28 [label = "Operator|cos"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_22->cell_28[color = darkgreen]
+cell_29 [label = "Number|6,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_28->cell_29[color = darkgreen]
+cell_63 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_64->cell_63[color = darkgreen]
+cell_62 [label = "Number|3,222200"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_63->cell_62[color = firebrick4]
+cell_61 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_63->cell_61[color = darkgreen]
+cell_60 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_61->cell_60[color = firebrick4]
+cell_59 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_60->cell_59[color = firebrick4]
+cell_58 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_60->cell_58[color = darkgreen]
+cell_57 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_61->cell_57[color = darkgreen]
+cell_40 [label = "Operator|cos"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_57->cell_40[color = firebrick4]
+cell_32 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_40->cell_32[color = darkgreen]
+cell_33 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_32->cell_33[color = firebrick4]
+cell_34 [label = "Variable|x"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_33->cell_34[color = firebrick4]
+cell_35 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_33->cell_35[color = darkgreen]
+cell_36 [label = "Number|3,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_35->cell_36[color = firebrick4]
+cell_37 [label = "Number|5,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_35->cell_37[color = darkgreen]
+cell_38 [label = "Operator|cos"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_32->cell_38[color = darkgreen]
+cell_39 [label = "Number|6,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_38->cell_39[color = darkgreen]
+cell_56 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_57->cell_56[color = darkgreen]
+cell_55 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_56->cell_55[color = firebrick4]
+cell_54 [label = "Number|1,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_55->cell_54[color = firebrick4]
+cell_53 [label = "Operator|+"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_55->cell_53[color = darkgreen]
+cell_49 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_53->cell_49[color = firebrick4]
+cell_48 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_49->cell_48[color = firebrick4]
+cell_47 [label = "Number|5,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_49->cell_47[color = darkgreen]
+cell_52 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_53->cell_52[color = darkgreen]
+cell_51 [label = "Number|3,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_52->cell_51[color = firebrick4]
+cell_50 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_52->cell_50[color = darkgreen]
+cell_46 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_56->cell_46[color = darkgreen]
+cell_44 [label = "Operator|*"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_46->cell_44[color = firebrick4]
+cell_43 [label = "Number|-1,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_44->cell_43[color = firebrick4]
+cell_42 [label = "Operator|sin"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_44->cell_42[color = darkgreen]
+cell_41 [label = "Number|6,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_42->cell_41[color = darkgreen]
+cell_45 [label = "Number|0,000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_46->cell_45[color = darkgreen]
+}

@@ -7,6 +7,7 @@
 
 #include "Tree.h"
 #include "Differenciator.h"
+#include "TXLib.h"
 
 
 
@@ -272,7 +273,7 @@ Node* Differenciate_Node(Node* node)
 {
     extern int image_num;
     printf("I'm in differenciator, now dump%d\n", image_num);
-    Tree_Dump(node);
+    Tree_Dump(node, "differenciator");
     Node* new_node = NULL;
 
     Node* node_chislitel_1 = NULL;
@@ -323,6 +324,10 @@ Node* Differenciate_Node(Node* node)
             chislitel        = NodeCtor(OPERATOR, MINUS, 0, node_chislitel_1, node_chislitel_2);
             znamenatel       = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->right), Copy_SubTree(node->right));
             new_node         = NodeCtor(OPERATOR, DIV, 0, chislitel, znamenatel);
+            node_chislitel_1->left->parent = node_chislitel_1;
+            node_chislitel_1->right->parent = node_chislitel_1;
+            node_chislitel_2->left->parent = node_chislitel_2;
+            node_chislitel_2->right->parent = node_chislitel_2;
             node_chislitel_1->parent = chislitel;
             node_chislitel_2->parent = chislitel;
             znamenatel->left->parent = znamenatel;
@@ -333,12 +338,16 @@ Node* Differenciate_Node(Node* node)
 
         case MUL:
             printf("meow mull\n");
-            part_1           = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->left), Copy_SubTree(node->right), new_node);
+            part_1           = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->left), Copy_SubTree(node->right));
             printf("mewo mull1\n");
-            part_2           = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->left), Differenciate_Node(node->right), new_node);
+            part_2           = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->left), Differenciate_Node(node->right));
             printf("mewo mull2\n");
             new_node         = NodeCtor(OPERATOR, PLUS, 0, part_1, part_2);
             printf("mewo mull3\n");
+            part_1->left->parent = part_1;
+            part_1->right->parent = part_1;
+            part_2->left->parent = part_2;
+            part_2->right->parent = part_2;
             part_1->parent = new_node;
             part_2->parent = new_node;
             break;
@@ -347,7 +356,7 @@ Node* Differenciate_Node(Node* node)
             cos_node         = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
             new_node         = NodeCtor(OPERATOR, MUL, 0, cos_node, Differenciate_Node(node->right));
             cos_node->right->parent = cos_node;
-            cos_node->parent = new_node;
+            new_node->left->parent = new_node;
             new_node->right->parent = new_node;
             break;
 
@@ -355,8 +364,11 @@ Node* Differenciate_Node(Node* node)
             sin_node         = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
             left_part        = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, NUMBER, -1), sin_node);
             new_node         = NodeCtor(OPERATOR, MUL, 0, left_part, Differenciate_Node(node->right));
-            left_part->left->parent = left_part;            
+            sin_node->right->parent = sin_node;
+            left_part->left->parent = left_part;       
+            left_part->right->parent = left_part;     
             new_node->right->parent = new_node;
+            new_node->left->parent = new_node;
             break;
 
         case TG:
@@ -367,9 +379,7 @@ Node* Differenciate_Node(Node* node)
             new_node         = NodeCtor(OPERATOR, MUL, 0, out_function, Differenciate_Node(node->right));
             cos_node_1->parent = square;
             cos_node_2->parent = square;
-            cos_node_1->left->parent = cos_node_1;
             cos_node_1->right->parent = cos_node_1;
-            cos_node_2->left->parent = cos_node_2;
             cos_node_2->right->parent = cos_node_2;
             square->parent = out_function;
             out_function->left->parent = out_function;
@@ -424,10 +434,36 @@ Tree Differenciate_Tree(Tree* tree)
 {
     Tree proizvodnaya = {};
     proizvodnaya.root = Differenciate_Node(tree->root);
-    Tree_Dump(proizvodnaya.root);
+    Tree_Dump(proizvodnaya.root, "differentiate tree");
 }
 
-//-------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+bool EASY_PEASY(Node* root_node)
+{
+    bool has_changed = true;
+
+    while (has_changed)
+    {
+        if (root_node->type == OPERATOR)
+        {
+            switch (root_node->value)
+            {
+            case PLUS:
+                if (root_node->left->type == NUMBER || root_node->right->type == NUMBER)
+                {
+                    
+                }
+                break;
+            
+            default:
+                break;
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 int File_Size(FILE* file)
 {
@@ -466,7 +502,7 @@ void Differenciator_TreeCtor(Tree* tree)
 
     TreeCtor(tree);
     tree->root = GetG(&string);
-    Tree_Dump(tree->root);
+    Tree_Dump(tree->root, "TreeCtor");
 }
 
 int main()
