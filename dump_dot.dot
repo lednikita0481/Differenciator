@@ -1,0 +1,8 @@
+digraph{
+nodesep = 2;
+splines = "ortho";
+node [ shape=record, style = rounded, fontsize = 30];
+cell_func [label = "Count value_gg"]cell_11 [label = "Number|2.000000"
+ style = filled
+ fillcolor = violet ]
+}

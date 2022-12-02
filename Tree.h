@@ -18,6 +18,7 @@ enum Operators
     TG,
     CTG,
     EXP,
+    POW,
     UNKNOWN_OPERATOR
 };
 
@@ -56,6 +57,7 @@ void TreeCtor(Tree* tree);
 Node* NodeCtor(Node_Types type, int value = VARIABLE, double num_value = NULL, Node* left = NULL, Node* right = NULL, Node* parent = NULL);
 const char* Type_Name(Node_Types type);
 const char* Value_Name(Node* node);
+void Node_Destructor(Node* node);
 void Recursive_Node_Dump(Node* node, FILE* dump_file);
 void Tree_Dump(Node* root_node, char* func);
     

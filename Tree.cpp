@@ -31,7 +31,15 @@ Node* NodeCtor(Node_Types type, int value, double num_value, Node* left, Node* r
     new_node->cell_num = CELL;
     CELL++;
 
+    if (left != NULL) left->parent = new_node;
+    if (right != NULL) right->parent = new_node;
+
     return new_node;
+}
+
+void Node_Destructor(Node* node)
+{
+    free(node);
 }
 
 const char* Type_Name(Node_Types type)
@@ -109,6 +117,8 @@ const char* Value_Name(Node* node)
         case EXP:
             value_name = "exp";
             break;
+        case POW:
+            value_name = "^";
 
         
         default:
@@ -142,10 +152,13 @@ void Recursive_Node_Dump(Node* node, FILE* dump_file)
     }
     DUMP("\"\n style = filled\n fillcolor = %s \n]\n", color);
 
-    if (node->parent->left == node) edge_color = "firebrick4";
-    else edge_color = "darkgreen";
-    
-    DUMP("cell_%d->cell_%d[color = %s]\n", node->parent->cell_num, node->cell_num, edge_color);
+    if (node->parent != NULL)
+    {
+        if (node->parent->left == node) edge_color = "firebrick4";
+        else edge_color = "darkgreen";
+        
+        DUMP("cell_%d->cell_%d[color = %s]\n", node->parent->cell_num, node->cell_num, edge_color);
+    }
 
     if (node->left != NULL) Recursive_Node_Dump(node->left, dump_file);
     if (node->right != NULL) Recursive_Node_Dump(node->right, dump_file);
@@ -190,7 +203,7 @@ void Tree_Dump(Node* root_node, char* func)
 
     image_num++;
 
-    printf("\n\n\n\nI'm in here, command is %s\n\n\n\n\n", command);
+    //printf("\n\n\n\nI'm in here, command is %s\n\n\n\n\n", command);
     system(command);
 
     Add_To_HTML(name);
