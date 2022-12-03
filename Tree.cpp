@@ -6,6 +6,7 @@
 
 #include "Tree.h"
 #include "html.h"
+#include "DSL.h"
 
 int CELL = 0;
 
@@ -39,6 +40,19 @@ Node* NodeCtor(Node_Types type, int value, double num_value, Node* left, Node* r
 
 void Node_Destructor(Node* node)
 {
+    free(node);
+}
+
+void Nodes_Destructor(Node* node)
+{
+    if (HAS_LEFT_CHILD) Nodes_Destructor(node->left);
+    if (HAS_RIGHT_CHILD) Nodes_Destructor(node->right);
+
+    if (HAS_PARENT)
+    {
+        if (node->parent->left == node) node->parent->left = NULL;
+        if (node->parent->right == node) node->parent->right = NULL;
+    }
     free(node);
 }
 

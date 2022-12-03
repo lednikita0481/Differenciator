@@ -1,24 +1,15 @@
-#define Nodes_To_Differenciate()  \
-    Node* new_node         = NULL;\
-    Node* node_chislitel_1 = NULL;\
-    Node* node_chislitel_2 = NULL;\
-    Node* chislitel        = NULL;\
-    Node* znamenatel       = NULL;\
-    Node* part_1           = NULL;\
-    Node* part_2           = NULL;\
-    Node* sin_node         = NULL;\
-    Node* sin_node_1       = NULL;\
-    Node* sin_node_2       = NULL;\
-    Node* cos_node         = NULL;\
-    Node* cos_node_1       = NULL;\
-    Node* cos_node_2       = NULL;\
-    Node* left_part        = NULL;\
-    Node* square           = NULL;\
-    Node* out_function     = NULL;\
-    Node* left             = NULL;
+
 
 
 #define IS_LEFT_OP        node->left->type == OPERATOR
+#define IS_LEFT_PLUS      node->left->value == PLUS
+#define IS_LEFT_MINUS     node->left->value == MINUS
+#define IS_LEFT_MUL       node->left->value == MUL
+#define IS_LEFT_DIV       node->left->value == DIV
+#define IS_RIGHT_PLUS     node->right->value == PLUS
+#define IS_RIGHT_MINUS    node->right->value == MINUS
+#define IS_RIGHT_MUL      node->right->value == MUL
+#define IS_RIGHT_DIV      node->right->value == DIV
 #define IS_RIGHT_OP       node->right->type == OPERATOR
 #define IS_LEFT_NUM       node->left->type == NUMBER
 #define IS_RIGHT_NUM      node->right->type == NUMBER
@@ -31,6 +22,7 @@
 #define IS_OP             node->type == OPERATOR
 #define HAS_LEFT_CHILD    node->left != NULL
 #define HAS_RIGHT_CHILD   node->right != NULL
+#define HAS_PARENT        node->parent != NULL
 #define IS_RIGHT_ONE      node->right->num_value == 1
 #define IS_LEFT_ONE       node->left->num_value == 1
 #define IS_RIGHT_ZERO     node->right->num_value == 0

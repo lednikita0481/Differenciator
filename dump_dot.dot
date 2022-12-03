@@ -2,7 +2,37 @@ digraph{
 nodesep = 2;
 splines = "ortho";
 node [ shape=record, style = rounded, fontsize = 30];
-cell_func [label = "Count value_gg"]cell_229 [label = "Number|0.000000"
+cell_func [label = "TreeCtor"]cell_6 [label = "Operator|+"
  style = filled
  fillcolor = violet ]
+cell_0 [label = "Operator|sin"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_6->cell_0[color = firebrick4]
+cell_3 [label = "Operator|^"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_0->cell_3[color = darkgreen]
+cell_1 [label = "Variable|x"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_3->cell_1[color = firebrick4]
+cell_2 [label = "Number|2.000000"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_3->cell_2[color = darkgreen]
+cell_4 [label = "Operator|cos"
+ style = filled
+ fillcolor = cyan1 
+]
+cell_6->cell_4[color = darkgreen]
+cell_5 [label = "Variable|x"
+ style = filled
+ fillcolor = darkolivegreen1 
+]
+cell_4->cell_5[color = darkgreen]
 }

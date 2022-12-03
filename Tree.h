@@ -58,6 +58,7 @@ Node* NodeCtor(Node_Types type, int value = VARIABLE, double num_value = NULL, N
 const char* Type_Name(Node_Types type);
 const char* Value_Name(Node* node);
 void Node_Destructor(Node* node);
+void Nodes_Destructor(Node* node);
 void Recursive_Node_Dump(Node* node, FILE* dump_file);
 void Tree_Dump(Node* root_node, char* func);
     

@@ -183,7 +183,7 @@ Node* GetN(const char** str)
             double add = (double)(**str - '0');
             for (int j = 0; j < i; j++) add /= 10;
             val = val + add; //((double)(**str - '0')/(10 * i));
-            printf("%lf\n", val);
+            //printf("%lf\n", val);
             (*str)++;
             i++;
         }
@@ -278,7 +278,7 @@ Operators Get_Operator(const char** str)
 
 Node* Copy_SubTree(Node* node)
 {
-    printf("gav\n");
+    //printf("gav\n");
     Node* new_node = NodeCtor(node->type, node->value, node->num_value);
     if (node->left != NULL) new_node->left = Copy_SubTree(node->left);
     if (node->right != NULL) new_node->right = Copy_SubTree(node->right);
@@ -289,11 +289,13 @@ Node* Copy_SubTree(Node* node)
 
 Node* Differenciate_Node(Node* node)
 {
+    Node* new_node         = NULL;
+
     extern int image_num;
-    printf("I'm in differenciator, now dump%d\n", image_num);
-    Tree_Dump(node, "differenciator");
+    //printf("I'm in differenciator, now dump%d\n", image_num);
+    //Tree_Dump(node, "differenciator");
     
-    Nodes_To_Differenciate();
+    //Nodes_To_Differenciate();
 
     switch (node->type)
     {
@@ -309,88 +311,52 @@ Node* Differenciate_Node(Node* node)
         switch (node->value)
         {
         case PLUS:
-            new_node = MAKE_PLUS(DIFF_LEFT(), DIFF_RIGHT());             //NodeCtor(OPERATOR, PLUS, 0, Differenciate_Node(node->left), Differenciate_Node(node->right));
+            new_node = MAKE_PLUS(DIFF_LEFT(), DIFF_RIGHT());             
             break;
         
         case MINUS:
-            new_node = MAKE_MINUS(DIFF_LEFT(), DIFF_RIGHT());             //NodeCtor(OPERATOR, MINUS, 0, Differenciate_Node(node->left), Differenciate_Node(node->right));
+            new_node = MAKE_MINUS(DIFF_LEFT(), DIFF_RIGHT());             
             break;
 
         case DIV:
-            /*
-            node_chislitel_1 = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->left), Copy_SubTree(node->right));
-            node_chislitel_2 = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->left), Differenciate_Node(node->right));
-            chislitel        = NodeCtor(OPERATOR, MINUS, 0, node_chislitel_1, node_chislitel_2);
-            znamenatel       = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->right), Copy_SubTree(node->right));
-            new_node         = NodeCtor(OPERATOR, DIV, 0, chislitel, znamenatel);
-            */
             new_node = MAKE_DIV(MAKE_MINUS(MAKE_MUL(DIFF_LEFT(), COPY_RIGHT()), MAKE_MUL(DIFF_RIGHT(), COPY_LEFT())), MAKE_MUL(COPY_LEFT(), COPY_RIGHT()));
             break;
 
         case MUL:
             printf("meow mull\n");
-            /*
-            part_1           = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->left), Copy_SubTree(node->right));
-            part_2           = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->left), Differenciate_Node(node->right));
-            new_node         = NodeCtor(OPERATOR, PLUS, 0, part_1, part_2);
-            */
             new_node = MAKE_PLUS(MAKE_MUL(DIFF_LEFT(), COPY_RIGHT()), MAKE_MUL(COPY_LEFT(), DIFF_RIGHT()));
             break;
 
         case SIN:
-            //cos_node         = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
-            //new_node         = NodeCtor(OPERATOR, MUL, 0, cos_node, Differenciate_Node(node->right));
             new_node = MAKE_MUL(MAKE_COS(COPY_RIGHT()), DIFF_RIGHT());
             break;
 
         case COS:
-            //sin_node         = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
-            //left_part        = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, NUMBER, -1), sin_node);
-            //new_node         = NodeCtor(OPERATOR, MUL, 0, left_part, Differenciate_Node(node->right));
             new_node = MAKE_MUL(MAKE_MUL(MAKE_MINUS_ONE_NODE(), MAKE_SIN(COPY_RIGHT())), DIFF_RIGHT());
             break;
 
         case TG:
-            /*
-            cos_node_1       = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
-            cos_node_2       = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
-
-            square           = NodeCtor(OPERATOR, MUL, 0, cos_node_1, cos_node_2);
-            out_function     = NodeCtor(OPERATOR, DIV, 0, NodeCtor(NUMBER, NUMBER, 1), square);
-            new_node         = NodeCtor(OPERATOR, MUL, 0, out_function, Differenciate_Node(node->right));
-            */
-
             new_node = MAKE_MUL(MAKE_DIV(MAKE_ONE_NODE(), MAKE_MUL(COPY_RIGHT(), COPY_RIGHT())), DIFF_RIGHT());
             break;
 
         case CTG:
-            /*
-            sin_node_1       = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
-            sin_node_2       = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
-            
-            square           = NodeCtor(OPERATOR, MUL, 0, sin_node_1, sin_node_2);
-            left             = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, NUMBER, -1), square);
-            out_function     = NodeCtor(OPERATOR, DIV, 0, NodeCtor(NUMBER, NUMBER, 1), left);
-            new_node         = NodeCtor(OPERATOR, MUL, 0, out_function, Differenciate_Node(node->right));
-            */
             new_node = MAKE_MUL(MAKE_DIV(MAKE_MINUS_ONE_NODE(), MAKE_MUL(COPY_RIGHT(), COPY_RIGHT())), DIFF_RIGHT());
             break;
         
         case EXP:
-            new_node = MAKE_MUL(COPY(), DIFF_RIGHT());                   //= NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->right), Differenciate_Node(node->right));
+            new_node = MAKE_MUL(COPY(), DIFF_RIGHT());                   
             break;
         
         case POW:
             EASY_PEASY(&node);
             if (IS_RIGHT_NUM)
             {
-                //new_node = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, 0, node->right->num_value), NodeCtor(OPERATOR, POW, 0, Copy_SubTree(node->left), NodeCtor(NUMBER, 0, node->right->num_value - 1)));
-                new_node = MAKE_MUL(MAKE_NUM(RIGHT_VALUE), MAKE_POW(COPY_LEFT(), MAKE_NUM(RIGHT_VALUE - 1)));
+                //new_node = MAKE_MUL(MAKE_NUM(RIGHT_VALUE), MAKE_POW(COPY_LEFT(), MAKE_NUM(RIGHT_VALUE - 1)));
+                new_node = MAKE_MUL(MAKE_MUL(MAKE_NUM(RIGHT_VALUE), MAKE_POW(COPY_LEFT(), MAKE_NUM(RIGHT_VALUE - 1))), DIFF_LEFT());
             }
 
             else if (IS_LEFT_NUM)
             {
-                //new_node = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->right), NodeCtor(OPERATOR, POW, 0, Copy_SubTree(node->left), NodeCtor(OPERATOR, MINUS, 0, Copy_SubTree(node->right), NodeCtor(NUMBER, 0, 1))));
                 new_node = MAKE_MUL(DIFF_LEFT(), MAKE_POW(COPY_LEFT(), MAKE_MINUS(COPY_RIGHT(), MAKE_ONE_NODE())));
             }
             break;
@@ -415,9 +381,9 @@ Tree Differenciate_Tree(Tree* tree)
 {
     Tree proizvodnaya = {};
     proizvodnaya.root = Differenciate_Node(tree->root);
-    Tree_Dump(proizvodnaya.root, "differentiate tree");
+    //Tree_Dump(proizvodnaya.root, "differentiate tree");
     EASY_PEASY(&proizvodnaya.root);
-    Tree_Dump(proizvodnaya.root, "hahahhahaahah loh");
+    //Tree_Dump(proizvodnaya.root, "hahahhahaahah loh");
     return proizvodnaya;
 }
 
@@ -435,12 +401,19 @@ void Replace_Nodes(Node* old_node, Node* new_node)
 
 }
 
+void Swap_Children(Node* node)
+{
+    Node* tyme = node->right;
+    node->right = node->left;
+    node->left = tyme;
+}
+
 bool EASY_PEASY(Node** NODE1, int rec_depth)
 {
     Node* node = *NODE1;
     rec_depth++;
-    printf("ayayayaya\n");
-    Tree_Dump(node, "Easy pusy in");
+    //printf("ayayayaya\n");
+    //Tree_Dump(node, "Easy pusy in");
     int c = 0;
     bool while_has_changed = true;
 
@@ -471,6 +444,73 @@ bool EASY_PEASY(Node** NODE1, int rec_depth)
                     while_has_changed = true;
                     break;
                 }
+
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_PLUS && node->right->left->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->left->num_value += node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_MINUS && node->right->left->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->left->num_value += node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_PLUS && node->right->right->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->right->num_value += node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_MINUS && node->right->right->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->right->num_value -= node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_PLUS && node->left->left->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->left->num_value += node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_MINUS && node->left->left->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->left->num_value += node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_PLUS && node->left->right->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->right->num_value += node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_MINUS && node->left->right->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->right->num_value -= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+
                 break;
 
             case MINUS:
@@ -482,6 +522,78 @@ bool EASY_PEASY(Node** NODE1, int rec_depth)
                     while_has_changed = true;
                     break;
                 }
+
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_PLUS && node->right->left->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->left->num_value = node->left->num_value - replace_node->left->num_value;
+                    replace_node->value = MINUS;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_MINUS && node->right->left->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->left->num_value = node->left->num_value - replace_node->left->num_value;
+                    replace_node->value = PLUS;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_PLUS && node->right->right->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->right->num_value = node->left->num_value - replace_node->left->num_value;
+                    Swap_Children(replace_node);
+                    replace_node->value = MINUS;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_MINUS && node->right->right->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->right->num_value += node->left->num_value;
+                    Swap_Children(replace_node);
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_PLUS && node->left->left->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->left->num_value -= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_MINUS && node->left->left->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->left->num_value -= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_PLUS && node->left->right->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->right->num_value -= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_MINUS && node->left->right->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->right->num_value += node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+
                 break;
 
             case MUL:
@@ -510,6 +622,57 @@ bool EASY_PEASY(Node** NODE1, int rec_depth)
                     while_has_changed = true; 
                     break;
                 }
+
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_MUL && node->right->left->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->left->num_value *= node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_DIV && node->right->left->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->left->num_value *= node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_LEFT_NUM && IS_RIGHT_OP && IS_RIGHT_DIV && node->right->right->type == NUMBER)
+                {
+                    replace_node = node->right;
+                    replace_node->right->num_value *= node->left->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_MUL && node->left->left->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->left->num_value *= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_DIV && node->left->left->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->left->num_value *= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+                if (IS_RIGHT_NUM && IS_LEFT_OP && IS_LEFT_MUL && node->left->right->type == NUMBER)
+                {
+                    replace_node = node->left;
+                    replace_node->right->num_value *= node->right->num_value;
+                    NODE_REPLACE();
+                    while_has_changed = true;
+                    break;
+                }
+
                 break;
 
             case POW:
@@ -551,6 +714,7 @@ bool EASY_PEASY(Node** NODE1, int rec_depth)
                     break;
                 }
                 break;
+
 
             case SIN:
                 if (IS_RIGHT_NUM) 
@@ -610,8 +774,8 @@ bool EASY_PEASY(Node** NODE1, int rec_depth)
     }
 
     if (rec_depth == 1) *NODE1 = node;
-    Tree_Dump(node, "Easy pusy out");
-    printf("уауауауауауа\n");
+    //Tree_Dump(node, "Easy pusy out");
+    //printf("уауауауауауа\n");
     if (c > 1) return true;
     else return false;
 }
@@ -634,9 +798,9 @@ double Count_Value(Tree* tree, double x)
 {
     Node* new_node = Copy_SubTree(tree->root);
     Change_Vars(new_node, x);
-    Tree_Dump(new_node, "Count value");
+    //Tree_Dump(new_node, "Count value");
     EASY_PEASY(&new_node);
-    Tree_Dump(new_node, "Count value_gg");
+    //Tree_Dump(new_node, "Count value_gg");
     double g = new_node->num_value;
     Node_Destructor(new_node);
     return g;
@@ -677,11 +841,11 @@ void Differenciator_TreeCtor(Tree* tree)
     FILE* inp_file = fopen("inp.txt", "r");
 
     const char* string = Get_String(inp_file, File_Size(inp_file));
-    printf("%s\n", string);
+    //printf("%s\n", string);
 
     TreeCtor(tree);
     tree->root = GetG(&string);
-    printf("I've built the tree\n");
+    //printf("I've built the tree\n");
     Tree_Dump(tree->root, "TreeCtor");
     EASY_PEASY(&tree->root);
 }
@@ -693,12 +857,22 @@ int main()
     setlocale(LC_ALL, "Rus");
     Tree tree = {};
     Differenciator_TreeCtor(&tree);
-    Tree alpha_shtrih = Differenciate_Tree(&tree);
-    Tree_Dump(tree.root, "I didn't change anything");
-    printf("i'm here");
-    double x = Count_Value(&tree, 1);
-    double x_shtrih = Count_Value(&alpha_shtrih, 1);
-    printf("function value is %lf, proizvodnoi is %lf\n", x, x_shtrih);
 
-    Tex_Dump(&tree, 5);
+    int derivs = 0;
+    double left_x = 0;
+    double right_x = 0;
+
+    printf("Hello! I'm calling Marvin. While he is going, I recommend you to enter the amount of derivatives and left and right x-es for graphic\n");
+    printf("amount of derivatives:");
+    scanf("%d", &derivs);
+    printf("left x:");
+    scanf("%lf", &left_x);
+    printf("right x:");
+    scanf("%lf", &right_x);
+
+    Tex_Dump(&tree, derivs, left_x, right_x);
+
+    Nodes_Destructor(tree.root);
+
+    system("evince Tex_File.pdf");
 }
