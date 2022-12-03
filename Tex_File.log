@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.3)  3 DEC 2022 18:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.12.3)  3 DEC 2022 20:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -910,37 +910,39 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 19.
 
-Overfull \hbox (348.86382pt too wide) detected at line 40
-\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = (\OM
-S/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 000) \OMS/c
-msy/m/n/12 ^^A [] ^^A [] \OT1/cmr/m/n/12 + [] \OMS/cmsy/m/n/12 ^^A [] \OT1/cmr/
-m/n/12 + [] + [] + []
+Overfull \hbox (413.49362pt too wide) in paragraph at lines 33--34
+[]$\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = [
+]$ 
  []
 
 
-Overfull \hbox (1550.00755pt too wide) detected at line 47
-\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = (\OM
-S/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 000) \OMS/c
-msy/m/n/12 ^^A [] ^^A [] \OT1/cmr/m/n/12 + [] + [] \OMS/cmsy/m/n/12 ^^A [] \OT1
-/cmr/m/n/12 + [] + [] + [] + []
+Overfull \hbox (3962.52963pt too wide) in paragraph at lines 40--41
+[]$\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = [
+]$ 
+ []
+
+
+Overfull \hbox (25540.60173pt too wide) in paragraph at lines 47--48
+[]$\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = [
+]$ 
+ []
+
+
+Overfull \hbox (31186.82562pt too wide) in paragraph at lines 54--55
+[]$\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = [
+]$ 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (5117.88399pt too wide) detected at line 54
-\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) = (\OM
-S/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 1\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 000) \OMS/c
-msy/m/n/12 ^^A [] ^^A [] \OT1/cmr/m/n/12 + [] + [] + [] \OMS/cmsy/m/n/12 ^^A []
- \OT1/cmr/m/n/12 + [] + [] + [] + [] + []
- []
-
-<plot.png, id=18, 578.16pt x 433.62pt>
+<plot.png, id=19, 578.16pt x 433.62pt>
 File: plot.png Graphic file (type png)
 <use plot.png>
-Package pdftex.def Info: plot.png  used on input line 71.
+Package pdftex.def Info: plot.png  used on input line 69.
 (pdftex.def)             Requested size: 378.42001pt x 283.81476pt.
-[2 <./plot.png>] [3] (./Tex_File.aux)
+ [2 <./plot.png>]
+(./Tex_File.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -948,24 +950,25 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  26154 strings out of 478287
  666019 string characters out of 5849289
- 1063539 words of memory out of 5000000
+ 1409334 words of memory out of 5000000
  43928 multiletter control sequences out of 15000+600000
  480158 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,6n,89p,1894b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,16n,89p,126028b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t2a.enc}</usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1
-728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/
-texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/pu
-blic/cm-super/sfrm2074.pfb>
-Output written on Tex_File.pdf (3 pages, 193657 bytes).
+type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb><
+/usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fon
+ts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-s
+uper/sfrm2074.pfb>
+Output written on Tex_File.pdf (2 pages, 167074 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 68 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

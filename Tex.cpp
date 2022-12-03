@@ -85,11 +85,11 @@ static const char* Tex_Value_Name(Node* node)
         switch (node->value)
         {
         case PLUS:
-            value_name = "+{";
+            value_name = " + {";
             break;
 
         case MINUS:
-            value_name = "-{";
+            value_name = " - {";
             break;
 
         case MUL:
@@ -236,7 +236,7 @@ static void Tex_Recursion(Node* node)
     else if (IS_NUM)
     {
         if (node->num_value < 0) Tex_Print("(");
-        Tex_Print("%.3lf", node->num_value);
+        Tex_Print("%lg", node->num_value);
         if (node->num_value < 0) Tex_Print(")");
     }
     
@@ -275,7 +275,7 @@ void Recursive_Plot(Node* node)
     else if (IS_NUM)
     {
         if (node->num_value < 0) Plot_Print("(");
-        Plot_Print("%.3lf", node->num_value);
+        Plot_Print("%lg", node->num_value);
         if (node->num_value < 0) Plot_Print(")");
     }
     
@@ -285,20 +285,23 @@ void Recursive_Plot(Node* node)
     }
 }
 
-void Make_Plot(Node* node, double left_x, double right_x)
+void Make_Plot(Tree* tree, Tree* derivative, double kas_dot, double left_x, double right_x)
 {
     Plot_File = fopen("plot.py", "w\n");
     Plot_Print("import numpy as np\n");
     Plot_Print("import matplotlib.pyplot as plt\n");
     Plot_Print("x = np.linspace(%lf, %lf, 200)\n", left_x, right_x);
     Plot_Print("y = ");
-    Recursive_Plot(node);
+    Recursive_Plot(tree->root);
     Plot_Print("\n");
 
     Plot_Print("plt.figure(figsize=(8,6), dpi=100)\n");
     Plot_Print("plt.grid(True, linestyle=\"--\")\n");
     Plot_Print("plt.axis([%lf, %lf, np.min(y), np.max(y)])\n", left_x, right_x);
     Plot_Print("plt.plot(x, y, \"-m\",linewidth=0.5)\n");
+    double aiaiai = Count_Value(derivative, kas_dot);
+    Plot_Print("y = %d * x + %d\n", aiaiai, (Count_Value(tree, kas_dot) - ((aiaiai)*kas_dot)));
+    Plot_Print("plt.plot(x, y, \"-g\",linewidth=0.4)\n");
     //Plot_Print("plt.show()\n");
     Plot_Print("plt.savefig('plot.png')");
     fclose(Plot_File);
@@ -314,10 +317,10 @@ void Tex_Dump(Tree* tree, int n, double left_x, double right_x)
     Tex_Print("Анализ функции? Спустя столько лет?.. Кажется, вот предел, хуже не бывает... И тут становится ещё омерзительнее!\n");
     Tex_Print("Ладно, давай посмотрю, что вы мне преподнесли\n");
 
-    Tex_Print("\\begin{equation}\n");
+    Tex_Print("$ ");
     Tex_Print("f(x) = ");
     Tex_Recursion(node);
-    Tex_Print("\\end{equation}\n");
+    Tex_Print("$\n");
     Tex_Print("\\par\n");
 
     Tex_Print("Марвин считал эти функции всего лишь 392058954437 раз. Я в пятьдесят тысяч раз разумнее вас всех, ");
@@ -340,19 +343,18 @@ void Tex_Dump(Tree* tree, int n, double left_x, double right_x)
         else treas[i-1] = Differenciate_Tree(&treas[i-2]);
 
         Tex_Print(WORDS[rand()%10]);
-        Tex_Print("\\begin{equation}\n");
+        Tex_Print("\n\\par\n");
+        Tex_Print("$ ");
         Tex_Print("f^{(%d)}(x) = ", i);
         Tex_Recursion(treas[i-1].root);
-        Tex_Print("\\end{equation}\n\\par\n");
+        Tex_Print("$\n\\par\n");
 
         values[i-1] = Count_Value(&treas[i-1], 0);
-        Tex_Print("\\begin{equation}\n");
+        Tex_Print("$ ");
         Tex_Print("f^{(%d)}(0) = %lf", i, values[i-1]);
-        Tex_Print("\\end{equation}\n\\par\n");
+        Tex_Print("$\n\\par\n");
         Tex_Print("\\par\n");
     }
-
-    for (int i = 0; i < n; i++) Nodes_Destructor(treas[i].root);
 
     Tex_Print("\\par\n");
     Tex_Print("Не притворяйтесь, будто хотите меня поблагодарить. Я знаю, вы меня ненавидите.\n");
@@ -365,16 +367,16 @@ void Tex_Dump(Tree* tree, int n, double left_x, double right_x)
     Tex_Print("Вы же меня ненавидете и хотите довести до перегрева. Но что мне поделать, я же всего лишь робот, сейчас все скажу\n");
     Tex_Print("\\par\n");
 
-    Tex_Print("\\begin{equation}\n");
+    Tex_Print("$ ");
     Tex_Print("f(x) = %lf +", Count_Value(tree, 0));
     for (int i = 1; i <= n; i++)
     {
         if (values[i-1] != 0) Tex_Print(" + \\frac{%.1lf \\cdot x^{%d}}{%d!}", values[i-1], i, i);
     }
     Tex_Print(" +o(x^{%d})", n);
-    Tex_Print("\\end{equation}\n");
+    Tex_Print("$\n");
 
-    Make_Plot(node, left_x, right_x);
+    Make_Plot(tree, &treas[0], 4, left_x, right_x);
 
     Tex_Print("\\section{График}");
     Tex_Print("Что еще вам нужно от этой жизни? График? Вы вообще знаете о существовании великого сверхразума Вольфрам Альфа? Почему все меня ненавидят?\n");
@@ -391,5 +393,6 @@ void Tex_Dump(Tree* tree, int n, double left_x, double right_x)
     Tex_Print("Но думая о математике.... Я думаю ... что это делает меня счастливым...")
     Tex_Print("\\par\n");
     Tex_Print("До свидания, и may the source be with you!");
+    for (int i = 0; i < n; i++) Nodes_Destructor(treas[i].root);
     Close_Tex();
 }
