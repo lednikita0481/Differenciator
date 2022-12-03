@@ -14,12 +14,14 @@ Operators Get_Operator(const char** str);
 //--------------------------------------------------------
 Node* Copy_SubTree(Node* node);
 Node* Differenciate_Node(Node* node);
+Tree Differenciate_Tree(Tree* tree);
 //--------------------------------------------------------
 void Replace_Nodes(Node* old_node, Node* new_node);
 bool EASY_PEASY(Node** NODE1, int rec_depth = 0);
 void Change_Vars(Node* node, double x);
 double Count_Value(Tree* tree, double x);
-
+//--------------------------------------------------------
 int File_Size(FILE* file);
 char* Get_String(FILE* stream, int size);
 void Differenciator_TreeCtor(Tree* tree);
+//--------------------------------------------------------

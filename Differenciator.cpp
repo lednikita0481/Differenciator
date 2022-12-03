@@ -9,6 +9,7 @@
 #include "Tree.h"
 #include "Differenciator.h"
 #include "DSL.h"
+#include "Tex.h"
 //#include "TXLib.h"
 
 
@@ -297,60 +298,73 @@ Node* Differenciate_Node(Node* node)
     switch (node->type)
     {
     case NUMBER:
-        new_node = NodeCtor(NUMBER, 0, 0);
+        new_node = MAKE_ZERO_NODE();
         break;
 
     case VARIABLE:
-        new_node = NodeCtor(NUMBER, 0, 1);
+        new_node = MAKE_ONE_NODE();
         break;
 
     case OPERATOR:
         switch (node->value)
         {
         case PLUS:
-            new_node = NodeCtor(OPERATOR, PLUS, 0, Differenciate_Node(node->left), Differenciate_Node(node->right));
+            new_node = MAKE_PLUS(DIFF_LEFT(), DIFF_RIGHT());             //NodeCtor(OPERATOR, PLUS, 0, Differenciate_Node(node->left), Differenciate_Node(node->right));
             break;
         
         case MINUS:
-            new_node = NodeCtor(OPERATOR, MINUS, 0, Differenciate_Node(node->left), Differenciate_Node(node->right));
+            new_node = MAKE_MINUS(DIFF_LEFT(), DIFF_RIGHT());             //NodeCtor(OPERATOR, MINUS, 0, Differenciate_Node(node->left), Differenciate_Node(node->right));
             break;
 
         case DIV:
+            /*
             node_chislitel_1 = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->left), Copy_SubTree(node->right));
             node_chislitel_2 = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->left), Differenciate_Node(node->right));
             chislitel        = NodeCtor(OPERATOR, MINUS, 0, node_chislitel_1, node_chislitel_2);
             znamenatel       = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->right), Copy_SubTree(node->right));
             new_node         = NodeCtor(OPERATOR, DIV, 0, chislitel, znamenatel);
+            */
+            new_node = MAKE_DIV(MAKE_MINUS(MAKE_MUL(DIFF_LEFT(), COPY_RIGHT()), MAKE_MUL(DIFF_RIGHT(), COPY_LEFT())), MAKE_MUL(COPY_LEFT(), COPY_RIGHT()));
             break;
 
         case MUL:
             printf("meow mull\n");
+            /*
             part_1           = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->left), Copy_SubTree(node->right));
             part_2           = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->left), Differenciate_Node(node->right));
             new_node         = NodeCtor(OPERATOR, PLUS, 0, part_1, part_2);
+            */
+            new_node = MAKE_PLUS(MAKE_MUL(DIFF_LEFT(), COPY_RIGHT()), MAKE_MUL(COPY_LEFT(), DIFF_RIGHT()));
             break;
 
         case SIN:
-            cos_node         = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
-            new_node         = NodeCtor(OPERATOR, MUL, 0, cos_node, Differenciate_Node(node->right));
+            //cos_node         = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
+            //new_node         = NodeCtor(OPERATOR, MUL, 0, cos_node, Differenciate_Node(node->right));
+            new_node = MAKE_MUL(MAKE_COS(COPY_RIGHT()), DIFF_RIGHT());
             break;
 
         case COS:
-            sin_node         = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
-            left_part        = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, NUMBER, -1), sin_node);
-            new_node         = NodeCtor(OPERATOR, MUL, 0, left_part, Differenciate_Node(node->right));
+            //sin_node         = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
+            //left_part        = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, NUMBER, -1), sin_node);
+            //new_node         = NodeCtor(OPERATOR, MUL, 0, left_part, Differenciate_Node(node->right));
+            new_node = MAKE_MUL(MAKE_MUL(MAKE_MINUS_ONE_NODE(), MAKE_SIN(COPY_RIGHT())), DIFF_RIGHT());
             break;
 
         case TG:
+            /*
             cos_node_1       = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
             cos_node_2       = NodeCtor(OPERATOR, COS, 0, NULL, Copy_SubTree(node->right));
 
             square           = NodeCtor(OPERATOR, MUL, 0, cos_node_1, cos_node_2);
             out_function     = NodeCtor(OPERATOR, DIV, 0, NodeCtor(NUMBER, NUMBER, 1), square);
             new_node         = NodeCtor(OPERATOR, MUL, 0, out_function, Differenciate_Node(node->right));
+            */
+
+            new_node = MAKE_MUL(MAKE_DIV(MAKE_ONE_NODE(), MAKE_MUL(COPY_RIGHT(), COPY_RIGHT())), DIFF_RIGHT());
             break;
 
         case CTG:
+            /*
             sin_node_1       = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
             sin_node_2       = NodeCtor(OPERATOR, SIN, 0, NULL, Copy_SubTree(node->right));
             
@@ -358,22 +372,26 @@ Node* Differenciate_Node(Node* node)
             left             = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, NUMBER, -1), square);
             out_function     = NodeCtor(OPERATOR, DIV, 0, NodeCtor(NUMBER, NUMBER, 1), left);
             new_node         = NodeCtor(OPERATOR, MUL, 0, out_function, Differenciate_Node(node->right));
+            */
+            new_node = MAKE_MUL(MAKE_DIV(MAKE_MINUS_ONE_NODE(), MAKE_MUL(COPY_RIGHT(), COPY_RIGHT())), DIFF_RIGHT());
             break;
         
         case EXP:
-            new_node         = NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->right), Differenciate_Node(node->right));
+            new_node = MAKE_MUL(COPY(), DIFF_RIGHT());                   //= NodeCtor(OPERATOR, MUL, 0, Copy_SubTree(node->right), Differenciate_Node(node->right));
             break;
         
         case POW:
             EASY_PEASY(&node);
             if (IS_RIGHT_NUM)
             {
-                new_node = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, 0, node->right->num_value), NodeCtor(OPERATOR, POW, 0, Copy_SubTree(node->left), NodeCtor(NUMBER, 0, node->right->num_value - 1)));
+                //new_node = NodeCtor(OPERATOR, MUL, 0, NodeCtor(NUMBER, 0, node->right->num_value), NodeCtor(OPERATOR, POW, 0, Copy_SubTree(node->left), NodeCtor(NUMBER, 0, node->right->num_value - 1)));
+                new_node = MAKE_MUL(MAKE_NUM(RIGHT_VALUE), MAKE_POW(COPY_LEFT(), MAKE_NUM(RIGHT_VALUE - 1)));
             }
 
             else if (IS_LEFT_NUM)
             {
-                new_node = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->right), NodeCtor(OPERATOR, POW, 0, Copy_SubTree(node->left), NodeCtor(OPERATOR, MINUS, 0, Copy_SubTree(node->right), NodeCtor(NUMBER, 0, 1))));
+                //new_node = NodeCtor(OPERATOR, MUL, 0, Differenciate_Node(node->right), NodeCtor(OPERATOR, POW, 0, Copy_SubTree(node->left), NodeCtor(OPERATOR, MINUS, 0, Copy_SubTree(node->right), NodeCtor(NUMBER, 0, 1))));
+                new_node = MAKE_MUL(DIFF_LEFT(), MAKE_POW(COPY_LEFT(), MAKE_MINUS(COPY_RIGHT(), MAKE_ONE_NODE())));
             }
             break;
 
@@ -614,11 +632,14 @@ void Change_Vars(Node* node, double x)
 
 double Count_Value(Tree* tree, double x)
 {
-    Change_Vars(tree->root, x);
-    Tree_Dump(tree->root, "Count value");
-    EASY_PEASY(&tree->root);
-    Tree_Dump(tree->root, "Count value_gg");
-    return(tree->root->num_value);
+    Node* new_node = Copy_SubTree(tree->root);
+    Change_Vars(new_node, x);
+    Tree_Dump(new_node, "Count value");
+    EASY_PEASY(&new_node);
+    Tree_Dump(new_node, "Count value_gg");
+    double g = new_node->num_value;
+    Node_Destructor(new_node);
+    return g;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -665,6 +686,8 @@ void Differenciator_TreeCtor(Tree* tree)
     EASY_PEASY(&tree->root);
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 int main()
 {
     setlocale(LC_ALL, "Rus");
@@ -676,4 +699,6 @@ int main()
     double x = Count_Value(&tree, 1);
     double x_shtrih = Count_Value(&alpha_shtrih, 1);
     printf("function value is %lf, proizvodnoi is %lf\n", x, x_shtrih);
+
+    Tex_Dump(&tree, 5);
 }
